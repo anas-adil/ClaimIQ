@@ -1,3 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# PyTorch CPU-only (Railway has no GPUs, skip ~3GB of CUDA libraries)
+torch
+
 # Z.AI GLM SDK (OpenAI-compatible)
 openai>=1.30.0
 
