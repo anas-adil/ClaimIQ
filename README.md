@@ -1,3 +1,6 @@
+<img width="1600" height="893" alt="image" src="https://github.com/user-attachments/assets/e59069a7-17b4-4544-b144-2d9d49fbef94" />
+
+
 ## Pitching video
 
 [Pitching Video here](https://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_linkhttps://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_link)
