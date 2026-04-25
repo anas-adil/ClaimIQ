@@ -1,0 +1,7 @@
+INFO:     127.0.0.1:63720 - "GET /api/analytics/denials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63720 - "GET /api/analytics/denials HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52052 - "POST /api/claims/submit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52055 - "POST /api/claims/process/505 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62005 - "POST /api/claims/submit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54858 - "POST /api/claims/process/506 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54867 - "POST /api/claims/submit HTTP/1.1" 200 OK

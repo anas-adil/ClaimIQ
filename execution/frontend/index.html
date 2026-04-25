@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ClaimIQ v2 — AI-powered TPA Claims Intelligence for Malaysian GP Clinics. Powered by Z.AI GLM.">
+    <title>ClaimIQ — TPA Claims Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css?v=2.2">
+</head>
+<body>
+    <div class="ambient-bg">
+        <div class="ambient-orb ambient-orb-1"></div>
+        <div class="ambient-orb ambient-orb-2"></div>
+        <div class="ambient-orb ambient-orb-3"></div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="top-nav" id="topNav">
+        <div class="nav-brand">
+            <div class="brand-icon">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <rect x="2" y="2" width="24" height="24" rx="6" stroke="url(#brandGrad)" stroke-width="2.5"/>
+                    <path d="M9 14h10M14 9v10" stroke="url(#brandGrad)" stroke-width="2" stroke-linecap="round"/>
+                    <defs><linearGradient id="brandGrad" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#4f8cff"/><stop offset="1" stop-color="#a78bfa"/></linearGradient></defs>
+                </svg>
+            </div>
+            <span class="brand-text">Claim<span class="brand-accent">IQ</span></span>
+            <span class="brand-badge">Z.AI GLM v2</span>
+        </div>
+
+        <!-- Global Search -->
+        <div class="global-search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="globalSearch" placeholder="Search patient, IC, claim ID..." autocomplete="off">
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <div class="nav-links">
+            <button class="nav-link active" data-view="dashboard" id="navDashboard">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Dashboard
+            </button>
+            <button class="nav-link" data-view="claims" id="navClaims">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                Claims Queue
+            </button>
+            <button class="nav-link" data-view="denials" id="navDenials">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                Denials
+            </button>
+            <button class="nav-link" data-view="fraud" id="navFraud">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01M5.07 19H18.93a2 2 0 001.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16a2 2 0 001.73 3z"/></svg>
+                Fraud
+            </button>
+            <button class="nav-link" data-view="analytics" id="navAnalytics">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+                Analytics
+            </button>
+            <button class="nav-link" data-view="gpportal" id="navGP">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                GP Portal
+            </button>
+            <button class="nav-link" data-view="submit" id="navSubmit">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="5,12 12,5 19,12"/></svg>
+                Submit
+            </button>
+        </div>
+
+        <div class="nav-actions">
+            <button class="notif-btn" id="notifBtn" title="Notifications">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+                <span class="notif-dot" id="notifDot"></span>
+            </button>
+            <button class="btn btn-ghost btn-sm" id="btnSeedDemo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13,2 3,14 12,14 11,22 21,10 12,10"/></svg>
+                Seed Demo
+            </button>
+        </div>
+    </nav>
+
+    <!-- Notification Drawer -->
+    <div class="notif-drawer" id="notifDrawer">
+        <div class="notif-header"><h3>Alerts</h3><button onclick="toggleNotif()" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:1.2rem;">&times;</button></div>
+        <div id="notifList"><p class="empty-state">No alerts</p></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+
+        <!-- DASHBOARD -->
+        <section class="view active" id="viewDashboard">
+            <div class="view-header">
+                <div>
+                    <h1>Claims Intelligence Dashboard</h1>
+                    <p class="view-subtitle">Real-time TPA operations powered by Z.AI GLM</p>
+                </div>
+                <button class="btn btn-ghost btn-sm" onclick="loadDashboard()">↻ Refresh</button>
+            </div>
+
+            <!-- KPI Row 1: Industry Standard -->
+            <div class="kpi-grid" id="kpiGrid">
+                <div class="kpi-card kpi-blue"><div class="kpi-val" id="kpiCleanRate">—</div><div class="kpi-label">Clean Claim Rate</div><div class="kpi-target">Target: &gt;95%</div></div>
+                <div class="kpi-card kpi-red"><div class="kpi-val" id="kpiDenialRate">—</div><div class="kpi-label">Denial Rate</div><div class="kpi-target">Target: &lt;5%</div></div>
+                <div class="kpi-card kpi-green"><div class="kpi-val" id="kpiArDays">—</div><div class="kpi-label">Avg AR Days</div><div class="kpi-target">Target: &lt;40 days</div></div>
+                <div class="kpi-card kpi-purple"><div class="kpi-val" id="kpiAutoAdj">—</div><div class="kpi-label">Auto-Adjudicated</div><div class="kpi-target">Target: &gt;80%</div></div>
+            </div>
+
+            <!-- Stat Cards Row 2 -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card stat-primary"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg></div><div class="stat-value" id="statTotal">—</div><div class="stat-label">Total Claims</div></div>
+                <div class="stat-card stat-success"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg></div><div class="stat-value" id="statApproved">—</div><div class="stat-label">Approved</div></div>
+                <div class="stat-card stat-danger"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="stat-value" id="statDenied">—</div><div class="stat-label">Denied</div></div>
+                <div class="stat-card stat-warning"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01M5.07 19H18.93a2 2 0 001.73-3L13.73 4a2 2 0 00-3.46 0L3.34 16a2 2 0 001.73 3z"/></svg></div><div class="stat-value" id="statFraud">—</div><div class="stat-label">High Risk Flags</div></div>
+                <div class="stat-card stat-info"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><div class="stat-value" id="statAvg">—</div><div class="stat-label">Avg Claim (MYR)</div></div>
+                <div class="stat-card stat-accent"><div class="stat-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg></div><div class="stat-value" id="statApprovedAmt">—</div><div class="stat-label">Total Approved (MYR)</div></div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-grid">
+                <div class="section-card chart-card">
+                    <div class="section-header"><h2>Denial Reasons Breakdown</h2></div>
+                    <canvas id="denialChart" height="220"></canvas>
+                </div>
+                <div class="section-card chart-card">
+                    <div class="section-header"><h2>Claims by Status</h2></div>
+                    <canvas id="statusChart" height="220"></canvas>
+                </div>
+            </div>
+
+            <!-- Weekly Report + Recent Claims -->
+            <div class="dashboard-bottom">
+                <div class="section-card weekly-report-card" id="weeklyReportCard">
+                    <div class="section-header">
+                        <h2>AI Weekly Intelligence Report</h2>
+                        <button class="btn btn-sm btn-primary" onclick="loadWeeklyReport()">Generate with GLM</button>
+                    </div>
+                    <div id="weeklyReportContent"><p class="empty-state">Click "Generate with GLM" to produce this week's intelligence report.</p></div>
+                </div>
+                <div class="section-card">
+                    <div class="section-header"><h2>Recent Claims</h2><button class="btn btn-sm btn-ghost" onclick="loadDashboard()">Refresh</button></div>
+                    <div class="table-wrap" id="recentClaimsTable"><p class="empty-state">Loading...</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLAIMS QUEUE -->
+        <section class="view" id="viewClaims">
+            <div class="view-header">
+                <div><h1>Claims Queue</h1></div>
+                <div class="view-actions">
+                    <input type="text" class="filter-input" id="filterClinic" placeholder="Filter by clinic...">
+                    <select class="select-filter" id="claimStatusFilter">
+                        <option value="">All Statuses</option>
+                        <option value="INTAKE">Intake</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="APPROVED">Approved</option>
+                        <option value="DENIED">Denied</option>
+                        <option value="REFERRED">Referred</option>
+                        <option value="APPEALING">Appealing</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="loadClaims()">Refresh</button>
+                </div>
+            </div>
+            <div class="table-wrap" id="claimsTable"><p class="empty-state">Loading...</p></div>
+        </section>
+
+        <!-- DENIALS VIEW -->
+        <section class="view" id="viewDenials">
+            <div class="view-header">
+                <div><h1>Denial Management</h1><p class="view-subtitle">Track denied claims, reason codes, and appeal opportunities</p></div>
+            </div>
+            <div class="denials-grid">
+                <div class="section-card">
+                    <h2>Top Denial Reason Codes</h2>
+                    <div id="denialCodesList" class="denial-codes-list"><p class="empty-state">Loading...</p></div>
+                </div>
+                <div class="section-card">
+                    <h2>Denied Claims — Appeal Ready</h2>
+                    <div id="deniedClaimsList" class="denied-list"><p class="empty-state">Loading...</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FRAUD VIEW -->
+        <section class="view" id="viewFraud">
+            <div class="view-header">
+                <div><h1>Fraud Detection</h1><p class="view-subtitle">AI-powered anomaly detection — Z.AI GLM identifies patterns humans miss</p></div>
+            </div>
+            <div class="fraud-grid">
+                <div class="section-card">
+                    <h2>Risk Distribution</h2>
+                    <div id="fraudRiskBars" class="risk-bars"></div>
+                </div>
+                <div class="section-card">
+                    <h2>High Risk Flagged Claims</h2>
+                    <div id="flaggedClaims" class="flagged-list"><p class="empty-state">Loading...</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS VIEW -->
+        <section class="view" id="viewAnalytics">
+            <div class="view-header">
+                <div><h1>Analytics & Intelligence</h1><p class="view-subtitle">Deep-dive into clinic performance and claims intelligence</p></div>
+            </div>
+            <div class="section-card">
+                <div class="section-header"><h2>Clinic Performance Benchmarks</h2></div>
+                <div class="table-wrap" id="clinicTable"><p class="empty-state">Loading...</p></div>
+            </div>
+        </section>
+
+        <!-- GP PORTAL -->
+        <section class="view" id="viewGpportal">
+            <div class="view-header">
+                <div>
+                    <h1>GP Clinic Portal</h1>
+                    <p class="view-subtitle">Selamat datang — Your claims overview and advisory hub</p>
+                </div>
+                <div class="lang-toggle">
+                    <button class="btn btn-sm btn-ghost active" id="langEN" onclick="setLang('en')">EN</button>
+                    <button class="btn btn-sm btn-ghost" id="langBM" onclick="setLang('bm')">BM</button>
+                </div>
+            </div>
+            <div class="gp-grid">
+                <div class="section-card gp-summary">
+                    <h2 data-en="My Claims Summary" data-bm="Ringkasan Tuntutan Saya">My Claims Summary</h2>
+                    <div id="gpSummaryStats" class="gp-stats"></div>
+                </div>
+                <div class="section-card">
+                    <h2 data-en="Recent Claims & Status" data-bm="Tuntutan Terkini & Status">Recent Claims & Status</h2>
+                    <div id="gpClaimsTable" class="table-wrap"><p class="empty-state">Loading...</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBMIT -->
+        <section class="view" id="viewSubmit">
+            <div class="view-header">
+                <div><h1>Submit New Claim</h1><p class="view-subtitle">AI-powered processing through 9 GLM intelligence layers</p></div>
+            </div>
+            <div class="submit-grid">
+                <div class="section-card submit-form-card">
+                    <p class="view-subtitle" style="margin-bottom:20px;">Upload patient records for AI extraction and adjudication.</p>
+                    
+                    <div class="upload-group">
+                        <label>📄 Itemized Bill / Invoice</label>
+                        <div class="upload-zone" id="dropZoneBill" onclick="document.getElementById('fileBill').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <p>Drag & drop PDF/Image or click to browse</p>
+                            <input type="file" id="fileBill" style="display:none;" onchange="handleFileSelect('fileBill', 'fileNameBill')">
+                            <div class="file-name" id="fileNameBill"></div>
+                        </div>
+                    </div>
+
+                    <div class="upload-group">
+                        <label>🩺 Doctor's Clinical Notes (Dictation/Text)</label>
+                        <textarea class="claim-input" id="claimTextInput" rows="6" placeholder="Paste physician dictation or clinical notes here...
+Example: Patient presented with severe throat pain. Temp 38.5C. Rapid Strep test negative. Diagnosed with Acute URI. Prescribed Paracetamol and Loratadine."></textarea>
+                    </div>
+
+                    <div class="upload-group">
+                        <label>🔬 Supporting Evidence (Lab Reports / X-Rays)</label>
+                        <div class="upload-zone" id="dropZoneEvidence" onclick="document.getElementById('fileEvidence').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                            <p>Drag & drop Lab PDF or DICOM summaries</p>
+                            <input type="file" id="fileEvidence" style="display:none;" onchange="handleFileSelect('fileEvidence', 'fileNameEvidence')">
+                            <div class="file-name" id="fileNameEvidence"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-lg" id="btnSubmitClaim" onclick="submitClaim()" style="width:100%; margin-top:20px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="13,17 18,12 13,7"/><polyline points="6,17 11,12 6,7"/></svg>
+                        Upload & Run Full Z.AI Pipeline
+                    </button>
+                </div>
+                <div class="section-card" id="processingPanel" style="display:none;">
+                    <h2>GLM Processing Pipeline</h2>
+                    <div class="pipeline-steps" id="pipelineSteps">
+                        <div class="pipeline-step" data-step="scrub"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Claim Scrubbing</div><div class="step-desc">Validating fields, codes, filing limit</div></div></div>
+                        <div class="pipeline-step" data-step="eligibility"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Eligibility Verification</div><div class="step-desc">Checking member coverage & benefits</div></div></div>
+                        <div class="pipeline-step" data-step="extract"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Document Understanding</div><div class="step-desc">GLM extracts structured data</div></div></div>
+                        <div class="pipeline-step" data-step="validate"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Clinical Validation</div><div class="step-desc">GLM checks clinical consistency</div></div></div>
+                        <div class="pipeline-step" data-step="code"><div class="step-indicator"></div><div class="step-info"><div class="step-name">ICD-10 / CPT Coding</div><div class="step-desc">GLM assigns medical codes</div></div></div>
+                        <div class="pipeline-step" data-step="adjudicate"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Policy Adjudication</div><div class="step-desc">GLM RAG-powered coverage decision</div></div></div>
+                        <div class="pipeline-step" data-step="fraud"><div class="step-indicator"></div><div class="step-info"><div class="step-name">Fraud Detection</div><div class="step-desc">GLM anomaly pattern analysis</div></div></div>
+                        <div class="pipeline-step" data-step="advisory"><div class="step-indicator"></div><div class="step-info"><div class="step-name">GP Advisory</div><div class="step-desc">GLM bilingual recommendations</div></div></div>
+                    </div>
+                    <div class="processing-result" id="processingResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CLAIM DETAIL MODAL -->
+        <div class="modal-overlay" id="claimModal">
+            <div class="modal-content" id="claimModalContent">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <div id="modalBody">Loading...</div>
+
+                <!-- GLM CHAT SIDEBAR -->
+                <div class="chat-sidebar" id="chatSidebar">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent-blue)" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                            Ask GLM about this claim
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg chat-msg-system">Hi! Ask me anything about this claim — why it was denied, what to do next, or how to appeal.</div>
+                    </div>
+                    <div class="chat-suggested" id="chatSuggested"></div>
+                    <div class="chat-input-row">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about this claim...">
+                        <button class="btn btn-primary btn-sm" id="chatSendBtn" onclick="sendChatMessage()">Ask</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPEAL MODAL -->
+        <div class="modal-overlay" id="appealModal">
+            <div class="modal-content" style="max-width:640px; display:block; padding:32px;">
+                <button class="modal-close" onclick="closeAppealModal()">&times;</button>
+                <h2 style="margin-bottom:16px;">Appeal Claim</h2>
+                <p style="color:var(--text-secondary);margin-bottom:16px;font-size:0.9rem;">GLM will draft a formal rebuttal letter in English and Bahasa Malaysia.</p>
+                <label style="font-size:0.85rem;color:var(--text-secondary);">Reason for Appeal</label>
+                <textarea class="claim-input" id="appealReason" rows="4" style="margin-top:6px;" placeholder="Explain why this claim should be approved..."></textarea>
+                <label style="font-size:0.85rem;color:var(--text-secondary);margin-top:12px;display:block;">Supporting Evidence (optional)</label>
+                <textarea class="claim-input" id="appealEvidence" rows="2" style="margin-top:6px;" placeholder="Lab results, clinical notes, etc."></textarea>
+                <button class="btn btn-primary btn-lg" style="margin-top:16px;width:100%;" onclick="submitAppeal()">
+                    Draft Appeal with GLM
+                </button>
+                <div id="appealResult" style="margin-top:16px;display:none;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js?v=2.2"></script>
+</body>
+</html>

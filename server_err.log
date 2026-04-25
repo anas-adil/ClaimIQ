@@ -1,0 +1,117 @@
+INFO:     Started server process [25168]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:claimiq.processor:[505] Step 3: Extracting claim data...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 7.70s | tokens=1688
+WARNING:claimiq.glm:Live extraction missing required fields ['total_amount_myr']; merging mock fallback for ONLY those fields.
+INFO:claimiq.glm:Merged fallback for fields: ['total_amount_myr']
+INFO:claimiq.processor:[505] Step 1: Scrubbing claim...
+INFO:claimiq.processor:[505] Step 2: Checking eligibility...
+INFO:claimiq.eligibility:Synchronized 5 synthetic members to database
+INFO:claimiq.processor:[505] Step 4: Clinical Validation...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 3.52s | tokens=1749
+INFO:claimiq.processor:[505] Step 5: Medical Coding...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 6.13s | tokens=2316
+INFO:claimiq.processor:[505] Step 6: Policy Adjudication...
+INFO:faiss.loader:Loading faiss with AVX2 support.
+INFO:faiss.loader:Successfully loaded faiss with AVX2 support.
+INFO:claimiq.rag:Loaded FAISS index: 8 documents
+INFO:sentence_transformers.base.model:No device provided, using cpu
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+INFO:sentence_transformers.base.model:Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 2565.00it/s]
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+INFO:httpx:HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+INFO:claimiq.rag:Embedding model loaded: all-MiniLM-L6-v2
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  6.68it/s]Batches: 100%|##########| 1/1 [00:00<00:00,  6.66it/s]
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 9.20s | tokens=6984
+INFO:claimiq.processor:[505] Step 7: Fraud Detection...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 7.71s | tokens=3508
+INFO:claimiq.processor:[505] Step 8: Generating GP Advisory...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 13.59s | tokens=5250
+WARNING:claimiq.processor:[505] Fraud gating triggered: HIGH/INVESTIGATE. Overriding 'DENIED' \u2192 'REFERRED'.
+INFO:claimiq.processor:[506] Step 3: Extracting claim data...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 8.19s | tokens=1838
+WARNING:claimiq.glm:Live extraction missing required fields ['total_amount_myr']; merging mock fallback for ONLY those fields.
+INFO:claimiq.glm:Merged fallback for fields: ['total_amount_myr']
+INFO:claimiq.processor:[506] Step 1: Scrubbing claim...
+INFO:claimiq.processor:[506] Step 2: Checking eligibility...
+INFO:claimiq.eligibility:Synchronized 5 synthetic members to database
+INFO:claimiq.processor:[506] Step 4: Clinical Validation...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 3.01s | tokens=1683
+INFO:claimiq.processor:[506] Step 5: Medical Coding...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 5.60s | tokens=2204
+INFO:claimiq.processor:[506] Step 6: Policy Adjudication...
+ERROR:claimiq.processor:[506] Pipeline failed: can only join an iterable
+INFO:claimiq.processor:[507] Step 3: Extracting claim data...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 7.62s | tokens=1893
+WARNING:claimiq.glm:Live extraction missing required fields ['total_amount_myr']; merging mock fallback for ONLY those fields.
+INFO:claimiq.glm:Merged fallback for fields: ['total_amount_myr']
+INFO:claimiq.processor:[507] Step 1: Scrubbing claim...
+INFO:claimiq.processor:[507] Step 2: Checking eligibility...
+INFO:claimiq.eligibility:Synchronized 5 synthetic members to database
+INFO:claimiq.processor:[507] Step 4: Clinical Validation...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 2.17s | tokens=1600
+INFO:claimiq.processor:[507] Step 5: Medical Coding...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 4.21s | tokens=2155
+INFO:claimiq.processor:[507] Step 6: Policy Adjudication...
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|##########| 1/1 [00:00<00:00, 22.57it/s]
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
+INFO:httpx:HTTP Request: POST https://api.ilmu.ai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:claimiq.glm:GLM response in 6.72s | tokens=6714
+INFO:claimiq.processor:[507] Step 7: Fraud Detection...
+INFO:claimiq.glm:GLM call attempt 1/3 | model=nemo-super
