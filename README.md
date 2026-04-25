@@ -1,83 +1,196 @@
 # ClaimIQ: Deterministic Clinical Adjudication & Fraud Intelligence
+ClaimIQ is an AI-assisted claims intelligence platform for outpatient medical claims. It is built to help Third-Party Administrators (TPAs), reviewers, and clinic-facing operations teams move from raw claim evidence to a structured, explainable decision workflow with stronger fraud checks and safer manual-review gates.
 
-## 📺 Pitching Video
-**Watch our full pitching video here:** 
-👉 **[Link to Pitching Video (Google Drive/Cloud Storage)]** 
-*(Participants: Replace this placeholder with your actual recording link)*
+At the center of the system is `Z.AI GLM`, which handles the reasoning-heavy parts of the pipeline: claim extraction, clinical validation, coding, adjudication, fraud analysis, advisory generation, appeal drafting, weekly reporting, and claim chat. Around that, the project uses deterministic backend logic to keep the workflow auditable and predictable.
 
----
+## Pitching video
 
-## 🚀 Key Critical Component: Z AI GLM Integration
-**ClaimIQ is powered primarily by Z AI’s GLM (General Language Model) Architecture.** 
+Add your final demo or pitching video link here once it is ready.
 
-As per the competition requirements, Z AI GLM serves as the central brain and main critical component of our solution. We utilize GLM for:
-*   **Clinical Adjudication**: Processing extracted clinical data against complex medical policies and RAG-based insurance rules.
-*   **Medical Coding**: Mapping doctor descriptions to standard ICD-10 and CPT codes.
-*   **Fraud & Anomaly Detection**: Identifying clinical discrepancies between objective lab results and subjective clinical notes.
-*   **GP Advisory**: Generating human-readable, professional guidance for clinics and patients.
 
-The system is architected to be **deterministic**—the AI provides decision-support and risk-scoring, but enforces a "Doctor-First" safety freeze where all negative outcomes (denials) are gated for human clinical sign-off.
+## Why ClaimIQ
 
----
+Medical claims workflows are often slowed down by fragmented evidence, repetitive manual review, and weak traceability. ClaimIQ is designed to reduce that friction by combining:
 
-## 📝 Overview
-ClaimIQ is a next-generation Third Party Administrator (TPA) platform designed to eliminate unsafe fallback behaviors and automate the clinical adjudication pipeline with 100% auditability. 
+- structured claim intake
+- multimodal evidence parsing
+- policy retrieval with FAISS-backed RAG
+- GLM-powered adjudication and fraud checks
+- manual-review safety gating
+- audit-friendly claim state tracking
 
-### Core Features:
-*   **Multi-Modal Evidence Parsing**: Utilizes Vision Agents (Gemini/MedGemma) to extract structured data from X-rays, Lab Reports, and Invoices.
-*   **"Double-Agent" Architecture**: Separates Vision Extraction from Reasoning Adjudication (GLM) for maximum reliability.
-*   **Safety-First Design**: Automated "Safety Freeze" prevents autonomous denials without human review.
-*   **Immutable Audit Trail**: Every decision state change and AI reasoning step is logged with SHA-256 integrity hashes.
-*   **Anti-Fraud Engine**: Detects clinical mismatches (e.g., Doctor claims severe dengue, but Lab Report shows normal platelets).
+The result is a demoable end-to-end system that shows how AI can support claims operations without jumping straight to unsafe autonomous decisions.
 
----
+## What the product does
 
-## 🛠 Architecture
-ClaimIQ operates on a 3-layer architecture:
-1.  **Ingestion & Triage**: Validating image quality (blur detection) and identifying document types.
-2.  **Evidence Extraction**: Converting unstructured images into structured JSON medical data.
-3.  **GLM Intelligence Layer**: 
-    *   **Reasoning**: Adjudicating against benefit tiers.
-    *   **Cross-Referencing**: Validating the bill against the clinical evidence.
-    *   **Fraud Scoring**: Generating a risk level based on clinical consistency.
+ClaimIQ currently supports:
 
----
+- new claim submission and processing
+- pre-adjudication scrubbing and eligibility checks
+- evidence parsing for invoices, lab reports, and imaging documents
+- ICD-10 / CPT coding support
+- policy-aware adjudication
+- fraud scoring and anomaly review
+- bilingual GP advisory output
+- appeal drafting
+- weekly intelligence reporting
+- per-claim chat grounded in claim context
+- dashboard, claims queue, denial, and fraud views
 
-## 📂 Project Structure
-*   `execution/`: Core backend logic (Python/FastAPI) and Frontend (Vanilla JS/CSS).
-*   `directives/`: Standard Operating Procedures for system logic.
-*   `docs/`: Competition deliverables (PRD, SAD, TAD, and Pitch Deck).
-*   `database.py`: Immutable audit logs and claim state management.
+## System architecture
 
----
+The repo follows a practical three-part flow:
 
-## 🏁 Getting Started
+1. `Deterministic orchestration`
+   - FastAPI routes, validation, claim lifecycle handling, audit logging, and persistence.
+2. `Multimodal evidence understanding`
+   - document triage and evidence parsing through `MedGemma`, with Gemini-backed paths in the client layer.
+3. `Reasoning and decisions`
+   - `Z.AI GLM` powers extraction, validation, coding, adjudication, fraud analysis, advisory text, appeals, weekly reports, and claim chat.
+
+This split matters: the model handles reasoning, while the application enforces workflow rules, storage, routing, and manual-review safeguards.
+
+## Processing pipeline
+
+The current processing flow in the codebase is an `8-step pipeline` plus output generation:
+
+1. Scrubbing
+2. Eligibility
+3. Document extraction
+4. Clinical validation
+5. Medical coding
+6. Adjudication with RAG context
+7. Fraud detection
+8. GP advisory
+9. EOB generation and status handling
+
+Important safety behavior:
+
+- claims are fail-closed when GLM is unavailable
+- high-risk fraud signals can force referral
+- automatic denials are converted to `REFERRED`
+- approvals are also frozen behind human review in the current demo flow
+
+So the system is explicitly built as decision support, not fully autonomous adjudication.
+
+## Tech stack
+
+- `Backend`: FastAPI, Python
+- `Database`: SQLite
+- `LLM / reasoning`: Z.AI GLM
+- `Retrieval`: FAISS + sentence-transformers
+- `Multimodal evidence parsing`: MedGemma client flow with Gemini-backed support in the evidence layer
+- `Frontend`: Vanilla JavaScript, HTML, CSS
+
+## Repository map
+
+- [execution/api_server.py](execution/api_server.py)  
+  FastAPI server, routing, analytics endpoints, appeal flow, claim chat, and demo utilities.
+
+- [execution/claims_processor.py](execution/claims_processor.py)  
+  Main processing pipeline, safety gates, fraud overrides, and final decision routing.
+
+- [execution/glm_client.py](execution/glm_client.py)  
+  Z.AI GLM wrapper and prompt-driven intelligence functions.
+
+- [execution/database.py](execution/database.py)  
+  SQLite schema, claim storage, audit trail, analytics, fraud rows, and appeals.
+
+- [execution/rag_engine.py](execution/database.py)  
+  FAISS index loading and policy retrieval for adjudication context.
+
+- [execution/evidence_parser.py](execution/generate_synthetic_data.py)  
+  Evidence parsing entrypoint.
+
+- [execution/medgemma_client.py](execution/medgemma_client.py)  
+  MedGemma and image-analysis bridge.
+
+- [execution/frontend/](execution/frontend)  
+  Dashboard and workflow UI.
+
+- [directives/hackathon_demo.md](directives/hackathon_demo.md)  
+  Demo SOP for running the project end to end.
+
+- [docs/](docs/)  
+  Submission materials such as the PRD, architecture docs, and deck.
+
+## Quick start
 
 ### Prerequisites
-*   Python 3.10+
-*   Z AI GLM API Key
-*   Gemini API Key (for Vision)
 
-### Installation
-1. Clone the repository.
-2. Install dependencies:
-   ```bash
-   pip install fastapi uvicorn openai google-generativeai pydantic pillow
-   ```
-3. Set up your `.env` file (see `.env.example` for required keys).
-4. Run the server:
-   ```bash
-   python execution/api_server.py
-   ```
+- Python `3.10+`
+- a valid `ZAI_API_KEY`
+- a valid `GEMINI_API_KEY` if you want image-analysis support
+
+### Setup
+
+1. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Create a `.env` file based on [.env.example](C:/Users/harlo/Downloads/ClaimIQ-main/ClaimIQ-main/.env.example).
+
+3. Build the policy index:
+
+```bash
+python execution/build_policy_index.py
+```
+
+4. Start the API server:
+
+```bash
+python execution/api_server.py
+```
+
+5. Open:
+
+```text
+http://localhost:8000
+```
+
+### Demo flow
+
+Once the app is running, you can:
+
+- seed demo claims
+- review dashboard metrics
+- inspect claim decisions and audit trail
+- open the fraud view
+- submit a new claim through the UI
+- ask claim-specific questions through Claim Chat
+- draft an appeal from a referred or denied claim
+
+## Key endpoints
+
+- `POST /api/claims/submit`
+- `POST /api/claims/scrub`
+- `POST /api/claims/eligibility`
+- `GET /api/claims`
+- `GET /api/claims/{claim_id}`
+- `POST /api/claims/{claim_id}/appeal`
+- `POST /api/claims/{claim_id}/chat`
+- `GET /api/analytics/summary`
+- `GET /api/analytics/kpis`
+- `GET /api/analytics/denials`
+- `GET /api/analytics/fraud-heatmap`
+- `GET /api/analytics/weekly-report`
+
+## Notes on current scope
+
+This repository is strongest as a hackathon demo and technical proof of concept. A few things are intentionally lightweight today:
+
+- SQLite is used for the current persistence layer
+- several analytics and demo flows are optimized for showcase use
+- MedGemma setup may require extra local or hosted configuration depending on your environment
+- claim decisions are deliberately gated toward human review for safety
+
+## Documentation
+
+Supporting docs live in [docs](docs/).
+
 
 ---
 
-## 📄 Documentation (In `docs/` Folder)
-The following mandatory files are available in the `/docs` directory:
-1.  **PRD.pdf** (Product Requirements Document)
-2.  **SAD.pdf** (Software Architecture Document)
-3.  **TAD.pdf** (Technical Architecture Document)
-4.  **Pitch_Deck.pdf**
-
----
-© 2026 ClaimIQ Team | Developed for the Preliminary Round Submission.
+Built for the Z.AI Hackathon.
