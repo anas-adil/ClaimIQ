@@ -1,11 +1,12 @@
+## Pitching video
+
+[Pitching Video here](https://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_linkhttps://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_link)
+
+
 # ClaimIQ: Deterministic Clinical Adjudication & Fraud Intelligence
 ClaimIQ is an AI-assisted claims intelligence platform for outpatient medical claims. It is built to help Third-Party Administrators (TPAs), reviewers, and clinic-facing operations teams move from raw claim evidence to a structured, explainable decision workflow with stronger fraud checks and safer manual-review gates.
 
 At the center of the system is `Z.AI GLM`, which handles the reasoning-heavy parts of the pipeline: claim extraction, clinical validation, coding, adjudication, fraud analysis, advisory generation, appeal drafting, weekly reporting, and claim chat. Around that, the project uses deterministic backend logic to keep the workflow auditable and predictable.
-
-## Pitching video
-
-[Pitching Video here](https://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_linkhttps://drive.google.com/drive/folders/1zzBbxtnOlhPAZAEeuZ46-U1t6RLOH7S9?usp=drive_link)
 
 
 ## Why ClaimIQ
