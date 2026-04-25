@@ -2,11 +2,12 @@
 
 > SOP for running the complete ClaimIQ demo end-to-end.
 
-## Prerequisites
 
-1. Python 3.10+ installed
-2. `.env` file has valid `ZAI_API_KEY`
-3. Dependencies installed: `pip install -r requirements.txt`
+### Prerequisites
+
+- Python 3.10+
+- a valid ZAI_API_KEY
+- a valid GEMINI_API_KEY if you want image-analysis support
 
 ## Quick Start (5 minutes)
 
